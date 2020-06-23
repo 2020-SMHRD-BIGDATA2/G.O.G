@@ -1,6 +1,6 @@
 package Login;
 
-public class MembersVO {
+public class MemberVO {
 	
 	private String id;
 	private String pw;
@@ -11,14 +11,24 @@ public class MembersVO {
 	private String pnumber;
 	private String email;
 	
-	public MembersVO() {
+	public MemberVO() {
 	}
 	
-	public MembersVO(String email) {
+	public MemberVO(String id, String pw, String address, String pnumber, String email) {
+		this.id = id;
+		this.pw = pw;
+		this.address = address;
+		this.pnumber = pnumber;
 		this.email = email;
 	}
 	
-	public MembersVO(String id, String pw, String name, int age, int sex, String address, String pnumber) {
+	
+	public MemberVO(String id, String pw) {
+		this.id = id;
+		this.pw = pw;
+	}
+	
+	public MemberVO(String id, String pw, String name, int age, int sex, String address, String pnumber, String email) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
@@ -26,21 +36,10 @@ public class MembersVO {
 		this.sex = sex;
 		this.address = address;
 		this.pnumber = pnumber;
-	}
-	
-	
-	public MembersVO(String id, String pw, String name, int age, int sex, String address, String pnumber, String email) {
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
-		this.age = age;
-		this.sex = sex;
-		this.address = address;
-		this.pnumber = pnumber;
 		this.email = email;
 	}
 	
-	public MembersVO(String id, String name, int age, int sex, String address, String pnumber, String email) {
+	public MemberVO(String id, String name, int age, int sex, String address, String pnumber, String email) {
 		this.id = id;
 		this.name = name;
 		this.age = age;

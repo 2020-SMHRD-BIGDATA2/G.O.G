@@ -1,26 +1,20 @@
-package Login;
-
+package prac;
 import java.awt.EventQueue;
 import java.awt.Image;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class Delete {
+public class Delete_1 {
 
 	private JFrame frame;
 	private JTextField txt_id;
 	private JTextField txt_pw;
-	private MemberDAO dao = new MemberDAO();
+
 	/**
 	 * Launch the application.
 	 */
@@ -28,7 +22,7 @@ public class Delete {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Delete window = new Delete();
+					Delete_1 window = new Delete_1();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +34,7 @@ public class Delete {
 	/**
 	 * Create the application.
 	 */
-	public Delete() {
+	public Delete_1() {
 		initialize();
 	}
 
@@ -53,7 +47,7 @@ public class Delete {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		String path = "C:\\Users\\SMHRD\\Desktop\\Delete.jpg";//¸ÞÀÎ ÀÌ¹ÌÁö
+		String path = "C:\\Users\\SMHRD\\Desktop\\delete.jpg";//¸ÞÀÎ ÀÌ¹ÌÁö
 		Image image = new ImageIcon(path).getImage();
 		frame.getContentPane().setLayout(null);
 		JLabel lbl_image = new JLabel(new ImageIcon(image.getScaledInstance(611, 543,Image.SCALE_FAST)));
@@ -71,38 +65,12 @@ public class Delete {
 		txt_pw.setBounds(258, 262, 198, 40);
 		frame.getContentPane().add(txt_pw);
 		
-		JButton btn_back = new JButton("back");
-		btn_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				frame.dispose();
-				Main.main(null);
-			}
-		});
+		JButton btn_back = new JButton("New button");
 		btn_back.setBounds(488, 29, 64, 46);
 		btn_back.setOpaque(false);
 		frame.getContentPane().add(btn_back);
 		
-		JButton btn_complete = new JButton("\uC644\uB8CC");
-		btn_complete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-
-				String id = txt_id.getText();
-				String pw = txt_pw.getText();
-				
-				int cnt = dao.delete(new MemberVO(id, pw));
-				
-				if (cnt>0) {
-					JOptionPane.showMessageDialog(null, "È¸¿øÅ»Åð ¼º°ø", "È¸¿øÅ»Åð",JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					JOptionPane.showMessageDialog(null, "È¸¿øÅ»Åð ½ÇÆÐ", "È¸¿øÅ»Åð",JOptionPane.WARNING_MESSAGE);
-				}
-				
-				frame.dispose(); // frame.setVisible(false);
-				Main.main(null);
-			}
-		});
+		JButton btn_complete = new JButton("New button");
 		btn_complete.setBounds(246, 444, 117, 29);
 		btn_complete.setOpaque(false);
 		frame.getContentPane().add(btn_complete);

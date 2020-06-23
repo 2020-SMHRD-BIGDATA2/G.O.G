@@ -1,133 +1,105 @@
 package Login;
 
 import java.awt.EventQueue;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
-	
+
 public class Login {
-	
-	private JFrame frame;
-	private JTextField txt_id;
-	private JPasswordField txt_pw;
-	MembersDAO dao = new MembersDAO();
-	private JButton btn_delete;
-	String name = "";
-	private CommonButton cb = new CommonButton();
+
+	public JFrame frame;
+	private String id;
 	
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login window = new Login();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void setId(String id) {
+		this.id = id;
 	}
+	
+	
+	
+	/**
+	 * Launch the application.
+	 */
 
-
+	/**
+	 * Create the application.
+	 */
 	public Login() {
 		initialize();
 	}
 
-
+	/**
+	 * Initialize the contents of the frame.
+	 */
+		
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 383, 536);
+		frame.setBounds(100, 100, 1113, 678);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 367, 497);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		String path = "C:\\Users\\SMHRD\\Desktop\\Login_next.jpg";//메인 이미지
+		Image image = new ImageIcon(path).getImage();
+		frame.getContentPane().setLayout(null);
+		JLabel lbl_image = new JLabel(new ImageIcon(image.getScaledInstance(1097, 639,Image.SCALE_FAST)));
+		lbl_image.setBounds(0, 0, 1097, 639);
+		lbl_image.setHorizontalAlignment(SwingConstants.CENTER);
+		frame.getContentPane().add(lbl_image);
 		
-		txt_id = new JTextField();
-		txt_id.setBounds(63, 83, 231, 40);
-		panel.add(txt_id);
-		txt_id.setColumns(10);
+		JButton btn_center = new JButton("\uD1B5\uACC4 \uC13C\uD130");
+		btn_center.setBounds(64, 199, 181, 166);
+		btn_center.setOpaque(false);
+
+		frame.getContentPane().add(btn_center);
 		
-		JButton btn_login = new JButton("\uB85C\uADF8\uC778");
-		btn_login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton btn_request = new JButton("\uC21C\uCC30 \uC2E0\uBB38\uACE0");
+		btn_request.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
-				String id = txt_id.getText();
-				String pw = txt_pw.getText();
-				name = dao.login(new MembersVO(id,pw));
-				if (name != null) { // 로그인 성공!
-					JOptionPane.showMessageDialog(null, name + "님 환영합니다.", "로그인", JOptionPane.INFORMATION_MESSAGE);
-					btn_delete.setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "로그인 실패", "로그인", JOptionPane.WARNING_MESSAGE);
-				}
+				frame.dispose();			
+				Request request= new Request();
+				request.setId(id);
+				request.frame.setVisible(true);
 			}
 		});
-		btn_login.setBounds(63, 254, 231, 40);
-		panel.add(btn_login);
+		btn_request.setOpaque(false);
+		btn_request.setBounds(307, 199, 181, 166);
+		frame.getContentPane().add(btn_request);
 		
-		JButton btn_join = new JButton("\uD68C\uC6D0\uAC00\uC785");
-		btn_join.addActionListener(new ActionListener() {
+		JButton btn_report = new JButton("\uBBFC\uC6D0\uAD00\uB9AC\uC13C\uD130");
+		btn_report.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				frame.dispose();
-				Join.main(null);
+				Report report = new Report();
+				report.setId(id);
+				report.frame.setVisible(true);
+				
+			
 			}
 		});
-		btn_join.setBounds(63, 304, 231, 40);
-		panel.add(btn_join);
+		btn_report.setOpaque(false);
+		btn_report.setBounds(542, 199, 181, 166);
+		frame.getContentPane().add(btn_report);
 		
-		JLabel lblNewLabel = new JLabel("ID");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(4, 75, 47, 40);
-		panel.add(lblNewLabel);
-		
-		JLabel lblPw = new JLabel("PW");
-		lblPw.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPw.setBounds(4, 169, 47, 40);
-		panel.add(lblPw);
-		
-		txt_pw = new JPasswordField();
-		txt_pw.setBounds(63, 168, 231, 41);
-		panel.add(txt_pw);
-		
-		btn_delete = new JButton("\uD68C\uC6D0\uD0C8\uD1F4");
-		btn_delete.addActionListener(new ActionListener() {
+		JButton btn_mypage = new JButton("\uB9C8\uC774 \uD398\uC774\uC9C0");
+		btn_mypage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				frame.dispose();
-				Delete.main(null);
-			}
-		});
-		
-		btn_delete.setBounds(63, 354, 231, 40);
-		panel.add(btn_delete);
-		btn_delete.setVisible(false); // 앞에 있는 컴포넌트가 시각화될지말지 유무를 결정하는 메소드
-		
-		
-		JButton btn_update = new JButton("\uD68C\uC6D0\uC218\uC815");
-		btn_update.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				
-				frame.dispose();
-				Update.main(null);
+				
 			}
 		});
-		btn_update.setBounds(63, 404, 231, 40);
-		panel.add(btn_update);
-		
-//		cb.buttonMake(frame, panel);
+		btn_mypage.setOpaque(false);
+		btn_mypage.setBounds(792, 199, 181, 166);
+		frame.getContentPane().add(btn_mypage);
 
 	}
+
 }

@@ -1,42 +1,52 @@
-package Login;
-
-import java.awt.Color;
+package prac;
 import java.awt.EventQueue;
 import java.awt.Image;
-import java.awt.TextArea;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.DropMode;
+import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.JList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.AbstractListModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-import prac.report_1;
+public class report_1 {
 
-public class Report {
-
-	public JFrame frame;
+	private JFrame frame;
 	private JButton btn_complete;
-	private ReportDAO dao = new ReportDAO();
-	private JTextArea textArea;	
-	private String id;
-	
-	
-	public void setId(String id) {
-		this.id = id;
-	}
-	
 
-	
-	public Report() {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					report_1 window = new report_1();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public report_1() {
 		initialize();
 	}
 
@@ -59,12 +69,17 @@ public class Report {
 	
 		
 		JComboBox box_list = new JComboBox();
-		box_list.setModel(new DefaultComboBoxModel(new String[] {"\uC0B4\uC778", "\uACBD\uBC94\uC8C4", "\uC131\uBC94\uC8C4.\uC131\uD3ED\uD589", "\uAE30\uD0C0"}));
+		box_list.addItem("살인");
+		box_list.addItem("경범죄");
+		box_list.addItem("성범죄.성폭행");
+		box_list.addItem("기타");
 		box_list.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(box_list.getSelectedIndex());
-
+				if (box_list.getSelectedIndex() == 0 ) {
+					
+				}
 				
 				
 			}
@@ -87,29 +102,16 @@ public class Report {
 		frame.getContentPane().add(lblNewLabel);
 		
 		
-		btn_complete = new JButton("\uC644\uB8CC\uBC84\uD2BC");
+		btn_complete = new JButton("");
 		btn_complete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int kind = box_list.getSelectedIndex();
-				String contents = textArea.getText();
-				String data = box_list2.getSelectedItem().toString();
 				
-				if (textArea.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "신고내용을 입력하세요.", "신고내용", JOptionPane.WARNING_MESSAGE);
-				} else {
-					int cnt = dao.take(new ReportVO(id, contents, kind, data));
-					
-					if (cnt > 0) {
-						JOptionPane.showMessageDialog(null, "신고 완료", "신고", JOptionPane.INFORMATION_MESSAGE);
-						frame.dispose();
-						Main.main(null);
-					} else {
-						JOptionPane.showMessageDialog(null, "신고 실패", "신고", JOptionPane.WARNING_MESSAGE);
-					}
-
-				}
-				}
+				
+				
+				
+				
+			}
 		});
 		btn_complete.setBackground(Color.WHITE);
 		btn_complete.setBounds(193, 428, 97, 33);
@@ -118,24 +120,24 @@ public class Report {
 		
 		
 		
-		JButton btn_back = new JButton("back");
-		btn_back.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-				frame.dispose();
-				Login login = new Login();
-				login.frame.setVisible(true);
-
+		JButton btn_back = new JButton("");
+		btn_back.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
 		btn_back.setBounds(400, 10, 57, 40);
 		btn_back.setOpaque(false);
 		frame.getContentPane().add(btn_back);
 		
-		textArea = new JTextArea();
+		JTextArea textArea = new JTextArea();
 		textArea.setBounds(45, 202, 393, 198);
 		frame.getContentPane().add(textArea);
 		
+		
+		
+		
+		
+		
 	}
-	}
-
+}

@@ -11,7 +11,7 @@ import javax.swing.JList;
 public class List {
 
 	private JFrame frame;
-	private MembersDAO dao = new MembersDAO();
+	private MemberDAO dao = new MemberDAO();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -48,7 +48,7 @@ public class List {
 		panel.setLayout(null);
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		ArrayList<MembersVO> member = dao.selectAll();
+		ArrayList<MemberVO> member = dao.selectAll();
 		
 		// member라는 arraylilst에 들어있는 값 중에 이름만 가지고 와서 model에 추가르 함
 		for (int i = 0; i < member.size(); i++) {

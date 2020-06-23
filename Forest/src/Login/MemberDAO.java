@@ -6,8 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class MembersDAO {
+public class MemberDAO {
 	
 	private Connection conn;
 	private PreparedStatement psmt;
@@ -17,8 +18,8 @@ public class MembersDAO {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			String db_url = "jdbc:oracle:thin:@localhost:1521:xe";
-			String db_id = "hr";
-			String db_pw = "hr";
+			String db_id = "system";
+			String db_pw = "12345";
 			conn = DriverManager.getConnection(db_url, db_id, db_pw);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -45,20 +46,24 @@ public class MembersDAO {
 		}
 	}
 	
-	public int join(MembersVO vo) {
+	public int join(MemberVO vo) {
 		int cnt = 0;
 		getConnection();		
 
 		try {
-			String sql = "INSERT INTO MEMBERS VALUES(?,?,?,?)";
+			String sql = "INSERT INTO MEMBER VALUES(?,?,?,?,?,?,?,?)";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getPw());
 			psmt.setString(3, vo.getName());
 			psmt.setInt(4, vo.getAge());
+			psmt.setInt(5, vo.getSex());
+			psmt.setString(6, vo.getAddress());
+			psmt.setString(7, vo.getPnumber());
+			psmt.setString(8, vo.getEmail());
 
 			cnt = psmt.executeUpdate();
-			
+
 //			if (cnt>0) {
 //				System.out.println("회원가입 성공");
 //			}else {
@@ -71,14 +76,42 @@ public class MembersDAO {
 		}
 		return cnt;
 	}
+	
+	public boolean duplibcateIdCheck(String id) {
+		
+		boolean result = false;
+		
+		getConnection();		
+		
+		try {
+			String sql = "select id from member where id = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			
+			rs = psmt.executeQuery();
 
-	public String login(MembersVO vo) {
+			if(rs.next()) {
+				result = true; // 아이디가 존재하지 않으면 false
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return result;
+		
+	}
+	
+	
+	
+	public String login(MemberVO vo) {
 		String name = null;
 		
 		getConnection();		
 
 		try {
-			String sql = "SELECT * from members where id = ? and pw = ?";
+			String sql = "SELECT * from member where id = ? and pw = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getPw());
@@ -98,14 +131,15 @@ public class MembersDAO {
 		return name;
 	}
 
-	public ArrayList<MembersVO> selectONE() {
-		ArrayList<MembersVO> list = new ArrayList<MembersVO>();
+	public ArrayList<MemberVO> selectONE() {
+		ArrayList<MemberVO> list = new ArrayList<MemberVO>();
+
 		
 		getConnection();
 		try {
-			String sql = "SELECT * from members where = ?";
+			String sql = "SELECT * from member where id= ?";
 			psmt = conn.prepareStatement(sql);
-			psmt.
+//			psmt.setString(1, id);
 			
 			
 			rs = psmt.executeQuery();
@@ -119,7 +153,7 @@ public class MembersDAO {
 				String pnumber = rs.getString("PNUMBER");
 				String email = rs.getString("EMAIL");
 				
-				MembersVO vo = new MembersVO(id, name, age, sex, address, pnumber, email);
+				MemberVO vo = new MemberVO(id, name, age, sex, address, pnumber, email);
 				list.add(vo);
 			}		
 		}
@@ -131,12 +165,12 @@ public class MembersDAO {
 		return list;
 	}
 
-	public int delete(MembersVO vo) {
+	public int delete(MemberVO vo) {
 		int cnt = 0;
 		
 		getConnection();
 		try {
-			String sql = "Delete from members where id = ? and pw = ?";
+			String sql = "Delete from member where id = ? and pw = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getPw());
@@ -152,18 +186,20 @@ public class MembersDAO {
 		return cnt;
 	}
 
-	public int update(MembersVO vo) {
+	public int update(MemberVO vo) {
 
 		int cnt = 0;
 		
-		
 		getConnection();
 		try {
-			String sql = "update members set  pw= ? where id = ?";
+			String sql = "update member set  pw= ?, address = ?, pnumber = ?, email = ? where id = ?";
 			psmt = conn.prepareStatement(sql);
 
 			psmt.setString(1, vo.getPw());
-			psmt.setString(2, vo.getId());
+			psmt.setString(2, vo.getAddress());
+			psmt.setString(3, vo.getPnumber());
+			psmt.setString(4, vo.getEmail());
+			psmt.setString(5, vo.getId());
 
 			
 			cnt = psmt.executeUpdate();

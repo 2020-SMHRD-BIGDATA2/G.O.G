@@ -1,25 +1,15 @@
-package Login;
-
+package prac;
 import java.awt.EventQueue;
 import java.awt.Image;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
-import prac.Update_1;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
-import java.awt.event.ActionListener;
-import java.lang.reflect.Member;
-import java.awt.event.ActionEvent;
-
-public class Update {
+public class Update_1 {
 
 	private JFrame frame;
 	private JTextField txt_id;
@@ -28,7 +18,7 @@ public class Update {
 	private JTextField txt_adress;
 	private JTextField txt_phone;
 	private JTextField txt_email;
-	private MemberDAO dao = new MemberDAO();
+
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +26,7 @@ public class Update {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Update window = new Update();
+					Update_1 window = new Update_1();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +38,7 @@ public class Update {
 	/**
 	 * Create the application.
 	 */
-	public Update() {
+	public Update_1() {
 		initialize();
 	}
 
@@ -62,7 +52,7 @@ public class Update {
 		frame.getContentPane().setLayout(null);
 		
 		
-		String path = "C:\\Users\\SMHRD\\Desktop\\Update.jpg";//메인 이미지
+		String path = "C:\\Users\\SMHRD\\Desktop\\change.jpg";//메인 이미지
 		Image image = new ImageIcon(path).getImage();
 		JLabel lbl_image = new JLabel(new ImageIcon(image.getScaledInstance(611, 543,Image.SCALE_FAST)));
 		lbl_image.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,46 +89,14 @@ public class Update {
 		frame.getContentPane().add(txt_email);
 		txt_email.setColumns(10);
 		
-		JButton btn_complete = new JButton("\uC644\uB8CC");
-		btn_complete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String id = txt_id.getText();
-				String pw = txt_pw.getText();
-				String pwcheck = txt_pwCheck.getText();
-				String address = txt_adress.getText();
-				String pnumber = txt_phone.getText();
-				String email = txt_email.getText();
-				
-				
-				int cnt = dao.update(new MemberVO(id,pw,address,pnumber,email));
-				
-				if (!pw.equals(pwcheck)) {
-					JOptionPane.showMessageDialog(null, "비밀번호를 확인하세요.", "비밀번호", JOptionPane.WARNING_MESSAGE);
-					txt_pw.setText("");
-					txt_pwCheck.setText("");
-
-				} else {
-				if (cnt>0) {
-					JOptionPane.showMessageDialog(null, "회원수정 성공", "회원수정",JOptionPane.INFORMATION_MESSAGE);
-					frame.dispose();
-					Main.main(null);
-				}else {
-					JOptionPane.showMessageDialog(null, "회원수정 실패", "회원수정",JOptionPane.WARNING_MESSAGE);
-				}
-				
-
-				}
-			}
-		});
-		btn_complete.setBounds(259, 454, 121, 31);
+		JButton btn_back1 = new JButton(" ");
+		btn_back1.setBounds(259, 454, 121, 31);
+		btn_back1.setOpaque(false);
+		frame.getContentPane().add(btn_back1);
+		
+		JButton btn_complete = new JButton("");
+		btn_complete.setBounds(502, 41, 72, 47);
 		btn_complete.setOpaque(false);
 		frame.getContentPane().add(btn_complete);
-		
-		JButton btn_back = new JButton("back");
-		btn_back.setBounds(502, 41, 72, 47);
-		btn_back.setOpaque(false);
-		frame.getContentPane().add(btn_back);
 	}
-
 }

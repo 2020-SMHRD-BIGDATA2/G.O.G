@@ -17,7 +17,7 @@ public class CommonButton {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
 				frame.dispose();
-				Join.main(null);
+				XXX_Join.main(null);
 			}
 		});
 		

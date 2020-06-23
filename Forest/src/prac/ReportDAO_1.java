@@ -1,21 +1,17 @@
-package Login;
-
+package prac;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-import prac.ReportVO_1;
+public class ReportDAO_1 {
 
-public class ReportDAO {
 	
 	private Connection conn;
 	private PreparedStatement psmt;
 	private ResultSet rs;
-	private int cnt;
-	
+
 	private void getConnection() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -45,21 +41,23 @@ public class ReportDAO {
 	}
 	
 	
-	public int take(ReportVO vo){ // 신고완료
-		cnt = 0 ;
+	public String take(ReportVO_1 vo){
 		
+		String cnt = "";
 		getConnection();
 		
 		try {
 
-			String sql = "INSERT INTO report VALUES(?,?,?,?,sysdate,rep_seq.nextval)";
+			String sql = "INSERT INTO MEMBERS VALUES(?,?,?,?)";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, vo.getId());
-			psmt.setInt(2, vo.getKind());
-			psmt.setString(3, vo.getContents());
-			psmt.setString(4, vo.getData());
-
+			psmt.setString(2, vo.getContent());
+			psmt.setString(3, vo.getKind());
+			psmt.setInt(4, vo.getRep_num());
+			psmt.setString(3, vo.getData());
+			psmt.setString(4, vo.getDate());
+			
 			cnt = psmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -73,7 +71,9 @@ public class ReportDAO {
 		
 		
 	}
-
-
-	}
+		
+	
+		
+		
+}
 
