@@ -145,12 +145,13 @@ public class Main {
 				String pw = txt_pw.getText();
 				name = dao.login(new MemberVO(id,pw));
 				if (name != null) { // 로그인 성공!
-					JOptionPane.showMessageDialog(null, name + "님 환영합니다.", "로그인", JOptionPane.INFORMATION_MESSAGE);
+//					JOptionPane.showMessageDialog(null, name + "님 환영합니다.", "로그인", JOptionPane.INFORMATION_MESSAGE);
 					
 					frame.dispose();
 					Login login = new Login();
 					login.setId(id);
-					login.frame.setVisible(true);
+					Login_chang.main(null);
+//					login.frame.setVisible(true);
 				
 				}else {
 					JOptionPane.showMessageDialog(null, "로그인 실패", "로그인", JOptionPane.WARNING_MESSAGE);

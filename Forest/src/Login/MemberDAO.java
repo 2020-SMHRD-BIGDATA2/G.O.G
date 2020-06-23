@@ -194,7 +194,7 @@ public class MemberDAO {
 		try {
 			String sql = "update member set  pw= ?, address = ?, pnumber = ?, email = ? where id = ?";
 			psmt = conn.prepareStatement(sql);
-
+			
 			psmt.setString(1, vo.getPw());
 			psmt.setString(2, vo.getAddress());
 			psmt.setString(3, vo.getPnumber());

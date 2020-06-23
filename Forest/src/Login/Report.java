@@ -1,7 +1,10 @@
 package Login;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -19,8 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import prac.report_1;
-
 public class Report {
 
 	public JFrame frame;
@@ -28,7 +29,8 @@ public class Report {
 	private ReportDAO dao = new ReportDAO();
 	private JTextArea textArea;	
 	private String id;
-	
+	private FontMake fm = new FontMake();
+
 	
 	public void setId(String id) {
 		this.id = id;
@@ -52,9 +54,18 @@ public class Report {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		fm.fontChange(ge);
+		
+		String fonts[] = ge.getAvailableFontFamilyNames();
+		for (int i = 0; i < fonts.length; i++) {
+			System.out.println(fonts[i]);
+		}
+		
 		JLabel lblNewLabel_1 = new JLabel("\uCD5C\uB300 500\uC790\uC785\uB825");
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setBounds(347, 165, 92, 27);
+		lblNewLabel_1.setFont(new Font("나눔바른고딕", Font.PLAIN, 12));
+		lblNewLabel_1.setBounds(317, 165, 92, 27);
 		frame.getContentPane().add(lblNewLabel_1);
 	
 		
@@ -103,7 +114,8 @@ public class Report {
 					if (cnt > 0) {
 						JOptionPane.showMessageDialog(null, "신고 완료", "신고", JOptionPane.INFORMATION_MESSAGE);
 						frame.dispose();
-						Main.main(null);
+						Login login = new Login();
+						login.frame.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "신고 실패", "신고", JOptionPane.WARNING_MESSAGE);
 					}

@@ -26,7 +26,8 @@ public class Request {
 	private JTextField txt_time;
 	private String id;
 	private RequestDAO dao = new RequestDAO();
-	
+	private FontMake fm = new FontMake();
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -52,8 +53,8 @@ public class Request {
 		frame.getContentPane().add(cb_reason);
 		
 		
-		JLabel lbl_ask = new JLabel("500\uC790 \uC774\uD558\uB85C \uC785\uB825\uD558\uC138\uC694");
-		lbl_ask.setFont(new Font("±¼¸²", Font.PLAIN, 12));
+		JLabel lbl_ask = new JLabel("500\uC790 \uC774\uD558 \uC785\uB825");
+		lbl_ask.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 12));
 		lbl_ask.setForeground(Color.WHITE);
 		lbl_ask.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_ask.setBounds(272, 224, 167, 34);
@@ -108,8 +109,8 @@ public class Request {
 
 				
 				frame.dispose();
-				Main.main(null);
-			}
+				Login login = new Login();
+				login.frame.setVisible(true);			}
 		}
 		});
 		btn_complete.setOpaque(false);
